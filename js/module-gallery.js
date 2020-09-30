@@ -10,6 +10,7 @@ const refs = {
 };
 
 // < --- method 1 -- ->
+
 const elements = defaultGallery.map(img => {
   const createGalleryItems = document.createElement('li');
 
