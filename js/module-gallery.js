@@ -10,35 +10,38 @@ const refs = {
 };
 
 // < --- method 1 -- ->
+// const elements = defaultGallery.map(img => {
+//   const createGalleryItems = document.createElement('li');
 
-const elements = defaultGallery.map(img => {
-  const createGalleryItems = document.createElement('li');
+//   createGalleryItems.insertAdjacentHTML(
+//     'afterbegin',
+//     `
+//   <img src="${img.preview}" data-source="${img.original}" alt="${img.description}">`,
+//   );
+//   return createGalleryItems;
+// });
 
-  createGalleryItems.insertAdjacentHTML(
-    'afterbegin',
-    `
-  <img src="${img.preview}" data-source="${img.original}" alt="${img.description}">`,
-  );
-  return createGalleryItems;
-});
-
-refs.gallery.append(...elements);
-refs.gallery.insertAdjacentHTML('afterbegin', createGalleryItems);
+// refs.gallery.append(...elements);
+// refs.gallery.insertAdjacentHTML('afterbegin', createGalleryItems);
 
 // < --- method 2 -- ->
 
-// const galleryMarkup = createGalleryItems(defaultGallery);
-// refs.gallery.insertAdjacentHTML('afterbegin', galleryMarkup);
-// function createGalleryItems(images) {
-//   return images
-//     .map(({ preview, original, description }) => {
-//       return `
-//       <img
-//       class="gallery__image"
-//       src="${preview}"
-//       data-source="${original}"
-//       alt="${description}" /></a>
-//   </li>`;
-//     })
-//     .join('');
-// }
+const galleryMarkup = createGalleryItems(defaultGallery);
+refs.gallery.insertAdjacentHTML('afterbegin', galleryMarkup);
+function createGalleryItems(images) {
+  return images
+    .map(({ preview, original, description }) => {
+      return `<li class="gallery__item">
+  <a
+    class="gallery__link"
+    href="${original}"
+  >
+      <img
+      class="gallery__image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}" /></a>
+  </li>`;
+    })
+    .join('');
+}
