@@ -9,31 +9,35 @@ const refs = {
   closeBtn: document.querySelector('[data-action="close-lightbox"]'),
 };
 
-// const galleryItems = document.createElement('li');
-// item.classList.add('gallery-item');
-// galleryItems.insertAdjacentHTML(
-//   'afterbegin',
-//   `<img src="${img.url}" alt="${img.alt}">`,
-// );
-
-// refs.gallery = document.querySelector("#js-gallery");
-
-// gallery.insertBefore;
-
-// const galleryItems = document.createElement('li');
-// galleryItems.insertAdjacentHTML(
-//   'beforeend',
-//   `<img src="${img.url}" alt="${img.alt}">`,
-// );
-
+// < --- method 1 -- ->
 const elements = defaultGallery.map(img => {
-  const galleryItems = document.createElement('li');
-  galleryItems.insertAdjacentHTML(
+  const createGalleryItems = document.createElement('li');
+
+  createGalleryItems.insertAdjacentHTML(
     'afterbegin',
-    `<img src="${img.preview}" data-source="${img.original}" alt="${img.description}">`,
+    `
+  <img src="${img.preview}" data-source="${img.original}" alt="${img.description}">`,
   );
-  return galleryItems;
+  return createGalleryItems;
 });
 
 refs.gallery.append(...elements);
-refs.gallery.insertAdjacentHTML('afterbegin', galleryItems);
+refs.gallery.insertAdjacentHTML('afterbegin', createGalleryItems);
+
+// < --- method 2 -- ->
+
+// const galleryMarkup = createGalleryItems(defaultGallery);
+// refs.gallery.insertAdjacentHTML('afterbegin', galleryMarkup);
+// function createGalleryItems(images) {
+//   return images
+//     .map(({ preview, original, description }) => {
+//       return `
+//       <img
+//       class="gallery__image"
+//       src="${preview}"
+//       data-source="${original}"
+//       alt="${description}" /></a>
+//   </li>`;
+//     })
+//     .join('');
+// }
