@@ -15,8 +15,8 @@ const refs = {
 
 //   createGalleryItems.insertAdjacentHTML(
 //     'afterbegin',
-//     `
-//   <img src="${img.preview}" data-source="${img.original}" alt="${img.description}">`,
+//     `<img src="${img.preview}" data-source="${img.original}" alt="${img.description}"></a>
+//   </li>`,
 //   );
 //   return createGalleryItems;
 // });
@@ -45,3 +45,14 @@ function createGalleryItems(images) {
     })
     .join('');
 }
+
+// refs.gallery.addEventListener('click', onGalleryClick);
+// function onGalleryClick(event) {
+//   console.log(event.target);
+//   if (!event.target.classList.gallery('lightbox__image')) {
+//     return;
+//   }
+//   // console.log(event.target.dataset.);
+// }
+
+refs.gallery.addEventListener('click', onOpenModal);
