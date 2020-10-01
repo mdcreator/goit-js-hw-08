@@ -52,7 +52,10 @@ function createGalleryItems(images) {
 //   if (!event.target.classList.gallery('lightbox__image')) {
 //     return;
 //   }
-//   // console.log(event.target.dataset.);
+//   //   // console.log(event.target.dataset.sourse);
 // }
 
-refs.gallery.addEventListener('click', onOpenModal);
+// refs.gallery.addEventListener('click', onOpenModal);
+// function onOpenModal() {
+
+// }
