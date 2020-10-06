@@ -57,28 +57,36 @@ function createGalleryItems(images) {
 // }
 
 refs.gallery.addEventListener('click', onOpenModal);
-refs.closeBtn.addEventListener('click', onCloseBtn);
-refs.lightboxOverlay.addEventListener('click', onLightboxOverlay);
 
 function onOpenModal(event) {
-  refs.jsLightbox.classList.add('is-open');
-  window.addEventListener('keydown', onEscKeyDown);
   if (event.target.nodeName !== 'IMG') {
     return;
   }
+  event.preventDefault();
+  refs.jsLightbox.classList.add('is-open');
+  refs.lightboxImage.setAttribute('src', event.target.dataset.source);
+
+  window.addEventListener('keydown', onEscKeyPress);
 }
 
+refs.closeBtn.addEventListener('click', onCloseBtn);
 function onCloseBtn(event) {
-  window.removeEventListener('keydown', onEscKeyDown);
   refs.jsLightbox.classList.remove('is-open');
+  refs.lightboxImage.removeAttribute('src');
+
+  window.removeEventListener('keydown', onEscKeyDown);
 }
 
+refs.lightboxOverlay.addEventListener('click', onLightboxOverlay);
 function onLightboxOverlay(event) {
   if (event.currentTarget === event.target) {
     onCloseBtn();
   }
 }
 
-function onEscKeyDown(event) {
-  onCloseBtn();
+function onEscKeyPress(event) {
+  const ESC_KEY_CODE = 'Escape';
+  if (event.code === ESC_KEY_CODE) {
+    onCloseBtn();
+  }
 }
