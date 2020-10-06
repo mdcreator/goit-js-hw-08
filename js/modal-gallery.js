@@ -4,9 +4,10 @@ const refs = {
   gallery: document.querySelector('.js-gallery'),
   jsLightbox: document.querySelector('.js-lightbox'),
   lightboxOverlay: document.querySelector('.lightbox__overlay'),
-  lightboxContent: document.querySelector('.lightbox__content'),
   lightboxImage: document.querySelector('.lightbox__image'),
   closeBtn: document.querySelector('[data-action="close-lightbox"]'),
+  prevBtn: document.querySelector('[data-action="prev-lightbox"]'),
+  nextBtn: document.querySelector('[data-action="next-lightbox"]'),
 };
 
 // < --- method 1 -- ->
@@ -90,3 +91,21 @@ function onEscKeyPress(event) {
     onCloseBtn();
   }
 }
+
+refs.jsLightbox.insertAdjacentHTML(
+  'beforeend',
+  `<button
+    type="button"
+    class="prev lightbox__button"
+    data-action="prev-lightbox"
+  ></button>`,
+);
+
+refs.jsLightbox.insertAdjacentHTML(
+  'beforeend',
+  `<button
+    type="button"
+    class="next lightbox__button"
+    data-action="next-lightbox"
+  ></button>`,
+);
