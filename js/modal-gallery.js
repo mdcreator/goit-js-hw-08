@@ -68,14 +68,16 @@ function onOpenModal(event) {
   refs.lightboxImage.setAttribute('src', event.target.dataset.source);
 
   window.addEventListener('keydown', onEscKeyPress);
+  window.addEventListener('keydown', onKeysPress);
 }
 
 refs.closeBtn.addEventListener('click', onCloseBtn);
-function onCloseBtn(event) {
+function onCloseBtn() {
   refs.jsLightbox.classList.remove('is-open');
   refs.lightboxImage.removeAttribute('src');
 
-  window.removeEventListener('keydown', onEscKeyDown);
+  window.removeEventListener('keydown', onEscKeyPress);
+  window.removeEventListener('keydown', onKeysPress);
 }
 
 refs.lightboxOverlay.addEventListener('click', onLightboxOverlay);
@@ -96,7 +98,7 @@ refs.jsLightbox.insertAdjacentHTML(
   'beforeend',
   `<button
     type="button"
-    class="prev lightbox__button"
+    class="lightbox__prev"
     data-action="prev-lightbox"
   ></button>`,
 );
@@ -105,7 +107,37 @@ refs.jsLightbox.insertAdjacentHTML(
   'beforeend',
   `<button
     type="button"
-    class="next lightbox__button"
+    class="lightbox__next"
     data-action="next-lightbox"
   ></button>`,
 );
+
+let index = 0;
+
+setActiveImage(index);
+
+refs.prevBtn.addEventListener('click', onPrevBtnClick);
+refs.nextBtn.addEventListener('click', onNextBtnClick);
+
+function onPrevBtnClick() {
+  if (index - 1 < 0) {
+    return;
+  }
+
+  index -= 1;
+  setActiveImage(index);
+}
+
+function onNextBtnClick() {
+  if (index + 1 >= images.length) {
+    return;
+  }
+
+  index += 1;
+  setActiveImage(index);
+}
+
+function setActiveImage(imageIdx) {
+  const activeImage = images[imageIdx];
+  refs.imageOutput.textContent = activeImage;
+}
