@@ -52,6 +52,7 @@ function onOpenModal(event) {
   refs.jsLightbox.classList.add('is-open');
   refs.lightboxImage.setAttribute('src', event.target.dataset.source);
   refs.lightboxImage.setAttribute('data-id', event.target.dataset.id);
+  // setActiveImage(index);
 
   window.addEventListener('keydown', onEscKeyPress);
   // window.addEventListener('keydown', onArrowBtnClick);
@@ -99,56 +100,73 @@ refs.jsLightbox.insertAdjacentHTML(
   ></button>`,
 );
 
-// refs.prevBtn.addEventListener('click', onPrevBtnClick);
-// function onPrevBtnClick(event) {
-//   console.log(event);
-// refs.jsLightbox.classList.remove('is-open');
-// refs.lightboxImage.removeAttribute('src');
-// }
 
-function onArrowKeysPress(event) {
+
+
+  // function onPrevBtnClick(event) {
+  //   console.log(event);
+  // refs.jsLightbox.classList.remove('is-open');
+  // refs.lightboxImage.removeAttribute('src');
+  // }
+
+  function onArrowKeysPress(event) {
+    console.log(event);
+    const PREV_KEY_CODE = 'ArrowLeft';
+    const NEXT_KEY_CODE = 'ArrowRight';
+
+    if (event.code === PREV_KEY_CODE) {
+      onArrowLeftImage();
+    }
+
+    if (event.code === NEXT_KEY_CODE) {
+      onArrowRightImage();
+    }
+  }
+
+  let index = 0;
+  // setActiveImage(index);
+
+  function onArrowLeftImage() {
+    // goToSlide(currentSlide + 1);
+    // for (let i = 0; i < gallery.length - 1; i += 1) {
+    // images[i];
+    if (index - 1 < 0) {
+      return;
+    }
+    index -= 1;
+    refs.lightboxImage.setAttribute('src', gallery[index].dataset.source);
+    // setActiveImage(index);
+  }
+
+  function onArrowRightImage() {
+    // goToSlide(currentSlide + 1);
+
+    // for (let i = 0; i < images.length - 1; i += 1) {
+    // images[i];
+ 
+    if (index + 1 >= images.length) {
+      return;
+    }
+
+    index += 1;
+    refs.lightboxImage.setAttribute('src', gallery[index].dataset.source);
+  }
+
+refs.prevBtn.addEventListener('click', onArrowBtnClick);
+refs.nextBtn.addEventListener('click', onArrowBtnClick);
+
+  function onArrowBtnClick(event) {
   console.log(event);
-  const PREV_KEY_CODE = 'ArrowLeft';
-  const NEXT_KEY_CODE = 'ArrowRight';
+    const prevBtn = refs.prevBtn;
+    const nextBtn = refs.nextBtn;
 
-  if (event.code === PREV_KEY_CODE) {
-    onArrowLeftImage();
+    if (event.target === prevBtn) {
+      onArrowLeftImage();
+    }
+
+    if (event.target === nextBtn) {
+      onArrowRightImage();
+    }
   }
 
-  if (event.code === NEXT_KEY_CODE) {
-    onArrowRightImage();
-  }
-}
 
-let index = 0;
-setActiveImage(index);
-
-function onArrowLeftImage() {
-  // goToSlide(currentSlide + 1);
-  // for (let i = 0; i < gallery.length - 1; i += 1) {
-  // images[i];
-  if (index - 1 < 0) {
-    return;
-  }
-  index -= 1;
-  setActiveImage(index);
-}
-
-function onArrowRightImage() {
-  // goToSlide(currentSlide + 1);
-
-  // for (let i = 0; i < gallery.length - 1; i += 1) {
-  // images[i];
-  if (index + 1 >= images.length) {
-    return;
-  }
-
-  index += 1;
-  setActiveImage(index);
-}
-
-function setActiveImage(imageIdx) {
-  const activeImage = images[imageIdx];
-  // refs.imageOutput.textContent = activeImage;
-  refs.lightboxImage.setAttribute('src', activeImage.dataset.source);
-}
