@@ -55,7 +55,6 @@ function onOpenModal(event) {
   // setActiveImage(index);
 
   window.addEventListener('keydown', onEscKeyPress);
-  // window.addEventListener('keydown', onArrowBtnClick);
   window.addEventListener('keydown', onArrowKeysPress);
 }
 
@@ -65,7 +64,7 @@ function onCloseBtn() {
   refs.lightboxImage.removeAttribute('src');
 
   window.removeEventListener('keydown', onEscKeyPress);
-  // window.removeEventListener('keydown', onKeysPress);
+  window.removeEventListener('keydown', onArrowKeysPress);
 }
 
 refs.lightboxOverlay.addEventListener('click', onLightboxOverlay);
@@ -101,16 +100,8 @@ refs.jsLightbox.insertAdjacentHTML(
 );
 
 
-
-
-  // function onPrevBtnClick(event) {
-  //   console.log(event);
-  // refs.jsLightbox.classList.remove('is-open');
-  // refs.lightboxImage.removeAttribute('src');
-  // }
-
-  function onArrowKeysPress(event) {
-    console.log(event);
+function onArrowKeysPress(event) {
+  console.log(event);
     const PREV_KEY_CODE = 'ArrowLeft';
     const NEXT_KEY_CODE = 'ArrowRight';
 
@@ -121,14 +112,47 @@ refs.jsLightbox.insertAdjacentHTML(
     if (event.code === NEXT_KEY_CODE) {
       onArrowRightImage();
     }
+ 
   }
+
+  
+refs.prevBtn.addEventListener('click', onArrowPrevBtnClick);
+function onArrowPrevBtnClick(event) {
+  console.log(event);
+  const prevBtnClick = refs.prevBtn;
+  if (event.target === prevBtnClick) {
+    onArrowLeftImage();
+  }
+}
+
+refs.nextBtn.addEventListener('click', onArrowNextBtnClick);
+function onArrowNextBtnClick(event) {
+  console.log(event);
+  const nextBtnClick = refs.nextBtn;
+  if (event.target === nextBtnClick) {
+      onArrowRightImage();
+    }
+}
+
+
+
+
+
+
+    
+  
+
 
   let index = 0;
   // setActiveImage(index);
 
   function onArrowLeftImage() {
     // goToSlide(currentSlide + 1);
-    // for (let i = 0; i < gallery.length - 1; i += 1) {
+    // for (let i = 0; i < images.length - 1; i -= 1) {
+    //   if (refs.lightboxImage.src === images[i].dataset.source) {
+    //     refs.lightboxImage.src = images[i - 1].dataset.source;
+    //   }
+    // }
     // images[i];
     if (index - 1 < 0) {
       return;
@@ -152,21 +176,12 @@ refs.jsLightbox.insertAdjacentHTML(
     refs.lightboxImage.setAttribute('src', gallery[index].dataset.source);
   }
 
-refs.prevBtn.addEventListener('click', onArrowBtnClick);
-refs.nextBtn.addEventListener('click', onArrowBtnClick);
 
-  function onArrowBtnClick(event) {
-  console.log(event);
-    const prevBtn = refs.prevBtn;
-    const nextBtn = refs.nextBtn;
 
-    if (event.target === prevBtn) {
-      onArrowLeftImage();
-    }
 
-    if (event.target === nextBtn) {
-      onArrowRightImage();
-    }
-  }
+
+
+
+
 
 
