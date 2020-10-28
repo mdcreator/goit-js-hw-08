@@ -56,6 +56,9 @@ function onOpenModal(event) {
 
   window.addEventListener('keydown', onEscKeyPress);
   window.addEventListener('keydown', onArrowKeysPress);
+
+  // refs.prevBtn.addEventListener('click', onArrowPrevBtnClick);
+  // refs.nextBtn.addEventListener('click', onArrowNextBtnClick);
 }
 
 refs.closeBtn.addEventListener('click', onCloseBtn);
@@ -99,24 +102,21 @@ refs.jsLightbox.insertAdjacentHTML(
   ></button>`,
 );
 
-
 function onArrowKeysPress(event) {
   console.log(event);
-    const PREV_KEY_CODE = 'ArrowLeft';
-    const NEXT_KEY_CODE = 'ArrowRight';
+  const PREV_KEY_CODE = 'ArrowLeft';
+  const NEXT_KEY_CODE = 'ArrowRight';
 
-    if (event.code === PREV_KEY_CODE) {
-      onArrowLeftImage();
-    }
-
-    if (event.code === NEXT_KEY_CODE) {
-      onArrowRightImage();
-    }
- 
+  if (event.code === PREV_KEY_CODE) {
+    onArrowLeftImage();
   }
 
-  
-refs.prevBtn.addEventListener('click', onArrowPrevBtnClick);
+  if (event.code === NEXT_KEY_CODE) {
+    onArrowRightImage();
+  }
+}
+
+// refs.prevBtn.addEventListener('click', onArrowPrevBtnClick);
 function onArrowPrevBtnClick(event) {
   console.log(event);
   const prevBtnClick = refs.prevBtn;
@@ -125,63 +125,44 @@ function onArrowPrevBtnClick(event) {
   }
 }
 
-refs.nextBtn.addEventListener('click', onArrowNextBtnClick);
+// refs.nextBtn.addEventListener('click', onArrowNextBtnClick);
 function onArrowNextBtnClick(event) {
   console.log(event);
   const nextBtnClick = refs.nextBtn;
   if (event.target === nextBtnClick) {
-      onArrowRightImage();
-    }
+    onArrowRightImage();
+  }
 }
 
+let index = 0;
+// setActiveImage(index);
 
-
-
-
-
-    
-  
-
-
-  let index = 0;
+function onArrowLeftImage() {
+  // goToSlide(currentSlide + 1);
+  // for (let i = 0; i < images.length - 1; i -= 1) {
+  //   if (refs.lightboxImage.src === images[i].dataset.source) {
+  //     refs.lightboxImage.src = images[i - 1].dataset.source;
+  //   }
+  // }
+  // images[i];
+  if (index - 1 < 0) {
+    return;
+  }
+  index -= 1;
+  refs.lightboxImage.setAttribute('src', gallery[index].dataset.source);
   // setActiveImage(index);
+}
 
-  function onArrowLeftImage() {
-    // goToSlide(currentSlide + 1);
-    // for (let i = 0; i < images.length - 1; i -= 1) {
-    //   if (refs.lightboxImage.src === images[i].dataset.source) {
-    //     refs.lightboxImage.src = images[i - 1].dataset.source;
-    //   }
-    // }
-    // images[i];
-    if (index - 1 < 0) {
-      return;
-    }
-    index -= 1;
-    refs.lightboxImage.setAttribute('src', gallery[index].dataset.source);
-    // setActiveImage(index);
+function onArrowRightImage() {
+  // goToSlide(currentSlide + 1);
+
+  // for (let i = 0; i < images.length - 1; i += 1) {
+  // images[i];
+
+  if (index + 1 >= images.length) {
+    return;
   }
 
-  function onArrowRightImage() {
-    // goToSlide(currentSlide + 1);
-
-    // for (let i = 0; i < images.length - 1; i += 1) {
-    // images[i];
- 
-    if (index + 1 >= images.length) {
-      return;
-    }
-
-    index += 1;
-    refs.lightboxImage.setAttribute('src', gallery[index].dataset.source);
-  }
-
-
-
-
-
-
-
-
-
-
+  index += 1;
+  refs.lightboxImage.setAttribute('src', gallery[index].dataset.source);
+}
